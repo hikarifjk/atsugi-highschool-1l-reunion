@@ -1,0 +1,26 @@
+﻿[
+	{
+		"name": "Atsugi Tech Club",
+		"logo": "https://placehold.co/160x80?text=Tech+Club",
+		"youtube": "https://www.youtube.com/@example1",
+		"intro": "卒業後はIT系スタートアップでプロダクト開発に取り組んでいます。",
+		"link": "https://example.com/tech-club",
+		"categories": ["IT", "スタートアップ"]
+	},
+	{
+		"name": "Blue Sky Studio",
+		"logo": "https://placehold.co/160x80?text=Blue+Sky",
+		"youtube": "https://www.youtube.com/@example2",
+		"intro": "映像制作と音楽活動を続けながら、地域イベントにも参加中です。",
+		"link": "https://example.com/blue-sky",
+		"categories": ["クリエイティブ", "映像"]
+	},
+	{
+		"name": "Yamato Sports Lab",
+		"logo": "https://placehold.co/160x80?text=Sports+Lab",
+		"youtube": "https://www.youtube.com/@example3",
+		"intro": "スポーツ指導とコミュニティ運営を軸に活動しています。",
+		"link": "https://example.com/sports-lab",
+		"categories": ["スポーツ", "コミュニティ"]
+	}
+]

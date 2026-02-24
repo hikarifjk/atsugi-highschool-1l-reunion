@@ -1,0 +1,70 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const news = (await getCollection('news')).sort(
+	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+
+const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
+	year: 'numeric',
+	month: '2-digit',
+	day: '2-digit',
+});
+---
+
+<Layout title="厚木高校1L 同窓会 | 最新情報">
+	<section>
+		<h1>最新情報一覧</h1>
+		<ul class="news-list">
+			{
+				news.map((item) => (
+					<li class="card">
+						<p class="news-meta">{dateFormatter.format(item.data.date)}</p>
+						<h2>{item.data.title}</h2>
+						<p>{item.body}</p>
+						{item.data.link && (
+							<p><a class="text-link" href={item.data.link} target="_blank" rel="noopener noreferrer">関連リンクを見る</a></p>
+						)}
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>
+
+<style>
+	h1 {
+		margin-top: 0;
+	}
+
+	h2 {
+		font-size: 1.15rem;
+		margin: 0.2rem 0 0.7rem;
+	}
+
+	.news-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #d1d5db;
+		border-radius: 12px;
+		padding: 1rem;
+	}
+
+	.news-meta {
+		font-size: 0.9rem;
+		color: #6b7280;
+		margin-bottom: 0.3rem;
+	}
+
+	.text-link {
+		color: #2563eb;
+	}
+</style>

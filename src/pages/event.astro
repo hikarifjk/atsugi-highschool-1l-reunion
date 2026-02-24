@@ -1,0 +1,74 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+
+const formUrl = 'https://example.com/google-form';
+const tbd = '未定（決まり次第更新）';
+---
+
+<Layout title="厚木高校1L 同窓会 | 開催詳細">
+	<section class="card">
+		<h1>開催詳細</h1>
+		<dl class="event-list">
+			<div>
+				<dt>開催日</dt>
+				<dd>{tbd}</dd>
+			</div>
+			<div>
+				<dt>開催時間</dt>
+				<dd>{tbd}</dd>
+			</div>
+			<div>
+				<dt>開催場所</dt>
+				<dd>{tbd}</dd>
+			</div>
+			<div>
+				<dt>会費</dt>
+				<dd>{tbd}</dd>
+			</div>
+			<div>
+				<dt>ドレスコード</dt>
+				<dd>{tbd}</dd>
+			</div>
+		</dl>
+		<p>詳細が確定次第、このページで更新します。</p>
+		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">Googleフォームで参加連絡</a>
+	</section>
+</Layout>
+
+<style>
+	h1 {
+		margin-top: 0;
+	}
+
+	.card {
+		background: #fff;
+		border: 1px solid #d1d5db;
+		border-radius: 12px;
+		padding: 1.2rem;
+	}
+
+	.event-list {
+		margin: 0 0 1rem;
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	dt {
+		font-weight: 700;
+	}
+
+	dd {
+		margin: 0.2rem 0 0;
+		color: #374151;
+	}
+
+	.form-button {
+		display: inline-block;
+		background: #2563eb;
+		color: #fff;
+		text-decoration: none;
+		font-weight: 700;
+		padding: 0.9rem 1.5rem;
+		border-radius: 10px;
+	}
+</style>
