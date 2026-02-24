@@ -15,13 +15,18 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 });
 ---
 
-<Layout title="厚木高校1L 同窓会 | トップ">
+<Layout title="厚木高校1L+α 同窓会 | トップ">
 	<section class="hero card">
-		<h1>厚木高校1L 同窓会のご案内</h1>
+		<h1>厚木高校1L+α 同窓会のご案内</h1>
 		<p>
-			久しぶりに集まって、近況を語り合う同窓会を企画しています。開催時期や会場の詳細は順次更新しますので、まずはフォームから連絡先の登録にご協力ください。
+			2026年5月中旬以降の開催を目指し、<br />
+			神奈川県立厚木高等学校 38期生 1年L組+α 同窓会の準備を進めています。
 		</p>
-		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">Googleフォームで参加連絡</a>
+		<p>
+			本同窓会は、38期生1年L組を中心とした同窓会として企画していますが、澤部先生が担任された2L・3Lの皆さまや、何らかのご縁のある方のご参加も歓迎いたします。
+		</p>
+		<p>発起人代表 藤岡 光（1年L組）</p>
+		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">Googleフォームからご連絡</a>
 	</section>
 
 	<section class="section-block">
@@ -43,7 +48,10 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 	</section>
 
 	<section class="section-block">
-		<h2>参加者紹介</h2>
+		<h2>皆さまの活動紹介</h2>
+		<p>
+			お店や事業のホームページ、出版した書籍、近況報告などがあれば、ぜひお知らせください。
+		</p>
 		<div class="participants-grid">
 			{
 				participants.map((participant) => (
@@ -51,7 +59,9 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 						<img src={participant.logo} alt={`${participant.name} ロゴ`} loading="lazy" />
 						<h3>{participant.name}</h3>
 						<p>{participant.intro}</p>
-						<p><a class="text-link" href={participant.youtube} target="_blank" rel="noopener noreferrer">YouTubeチャンネル</a></p>
+						{participant.youtube && (
+							<p><a class="text-link" href={participant.youtube} target="_blank" rel="noopener noreferrer">YouTubeチャンネル</a></p>
+						)}
 						{participant.link && (
 							<p><a class="text-link" href={participant.link} target="_blank" rel="noopener noreferrer">関連リンク</a></p>
 						)}
