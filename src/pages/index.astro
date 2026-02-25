@@ -4,6 +4,7 @@ import participants from '../data/participants.json';
 import { getCollection } from 'astro:content';
 
 const formUrl = 'https://example.com/google-form';
+const schoolTopImage = 'https://www.pen-kanagawa.ed.jp/atsugi-h/seikatsu/images/img_3365-1.jpg';
 const latestNews = (await getCollection('news')).sort(
 	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
 ).slice(0, 5);
@@ -13,10 +14,32 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 	month: '2-digit',
 	day: '2-digit',
 });
+
+const getDomain = (value?: string) => {
+	if (!value) return '';
+	try {
+		return new URL(value).hostname;
+	} catch {
+		return '';
+	}
+};
+
+const participantCards = participants.map((participant) => {
+	const domain = getDomain(participant.youtube) || getDomain(participant.link);
+	const fallbackThumbnail = domain
+		? `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=256`
+		: '/favicon.svg';
+
+	return {
+		...participant,
+		thumbnailSrc: participant.thumbnailUrl || fallbackThumbnail,
+	};
+});
 ---
 
 <Layout title="厚木高校1L+α 同窓会 | トップ">
 	<section class="hero card">
+		<img class="school-photo" src={schoolTopImage} alt="神奈川県立厚木高等学校" loading="lazy" />
 		<h1>厚木高校1L+α 同窓会のご案内</h1>
 		<p>
 			2026年5月中旬以降の開催を目指し、<br />
@@ -26,7 +49,8 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 			本同窓会は、38期生1年L組を中心とした同窓会として企画していますが、澤部先生が担任された2L・3Lの皆さまや、何らかのご縁のある方のご参加も歓迎いたします。
 		</p>
 		<p>発起人代表 藤岡 光（1年L組）</p>
-		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">Googleフォームからご連絡</a>
+		<p class="cta-note"><strong>人数把握したいため、仮出欠登録にご協力ください。</strong></p>
+		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">仮出欠登録(Googleフォーム)</a>
 	</section>
 
 	<section class="section-block">
@@ -49,14 +73,12 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 
 	<section class="section-block">
 		<h2>皆さまの活動紹介</h2>
-		<p>
-			お店や事業のホームページ、出版した書籍、近況報告などがあれば、ぜひお知らせください。
-		</p>
+		<p>皆さまの活動を紹介しています。掲載希望の方は、お店や事業のホームページ、出版した書籍、近況報告等、ぜひお知らせください。</p>
 		<div class="participants-grid">
 			{
-				participants.map((participant) => (
+				participantCards.map((participant) => (
 					<article class="card participant-card">
-						<img src={participant.logo} alt={`${participant.name} ロゴ`} loading="lazy" />
+						<img src={participant.thumbnailSrc} alt={`${participant.name} サムネイル`} loading="lazy" />
 						<h3>{participant.name}</h3>
 						<p>{participant.intro}</p>
 						{participant.youtube && (
@@ -79,12 +101,14 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 
 <style>
 	h1 {
-		font-size: clamp(1.5rem, 3vw, 2rem);
+		font-size: clamp(1.6rem, 3vw, 2.1rem);
 		margin: 0 0 1rem;
+		color: #8e3f23;
 	}
 
 	h2 {
 		margin: 0 0 1rem;
+		color: #8e3f23;
 	}
 
 	h3 {
@@ -102,25 +126,44 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 	}
 
 	.card {
-		background: #fff;
-		border: 1px solid #d1d5db;
-		border-radius: 12px;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
 		padding: 1rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
+	}
+
+	.hero {
+		background: linear-gradient(180deg, #fffaf3 0%, #fff4e8 100%);
+	}
+
+	.school-photo {
+		width: 100%;
+		border-radius: 12px;
+		margin-bottom: 1rem;
+		border: 1px solid #ead6c3;
+	}
+
+	.cta-note {
+		margin-bottom: 0.5rem;
+		font-size: 1.02rem;
+		color: #8b2f1e;
 	}
 
 	.form-button {
 		display: inline-block;
-		background: #2563eb;
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
 		color: #fff;
 		text-decoration: none;
 		font-weight: 700;
-		padding: 0.9rem 1.5rem;
-		border-radius: 10px;
-		margin-top: 0.5rem;
+		padding: 0.95rem 1.6rem;
+		border-radius: 12px;
+		margin-top: 0.2rem;
+		box-shadow: 0 6px 16px rgba(200, 88, 47, 0.35);
 	}
 
 	.form-button:hover {
-		background: #1d4ed8;
+		filter: brightness(1.05);
 	}
 
 	.news-list {
@@ -133,7 +176,7 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 
 	.news-meta {
 		font-size: 0.9rem;
-		color: #6b7280;
+		color: var(--subtle);
 		margin-bottom: 0.3rem;
 	}
 
@@ -149,6 +192,9 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 		max-width: 160px;
 		display: block;
 		margin-bottom: 0.8rem;
+		border-radius: 10px;
+		border: 1px solid #ead6c3;
+		background: #fff;
 	}
 
 	.tag-list {
@@ -159,12 +205,15 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 
 	.tag {
 		font-size: 0.8rem;
-		background: #e5e7eb;
-		padding: 0.2rem 0.6rem;
+		background: #fde8d6;
+		padding: 0.25rem 0.65rem;
 		border-radius: 999px;
+		color: #8e3f23;
 	}
 
 	.text-link {
-		color: #2563eb;
+		color: #b94f2d;
+		font-weight: 600;
 	}
 </style>
+

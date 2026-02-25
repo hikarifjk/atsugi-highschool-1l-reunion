@@ -9,6 +9,7 @@ const navItems = [
 	{ href: '/event', label: '開催詳細' },
 	{ href: '/news', label: '最新情報' },
 ];
+const schoolFavicon = 'https://www.pen-kanagawa.ed.jp/shared/images/logo/136.png';
 ---
 
 <!doctype html>
@@ -16,8 +17,8 @@ const navItems = [
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href={schoolFavicon} type="image/vnd.microsoft.icon" />
+		<link rel="shortcut icon" href={schoolFavicon} type="image/vnd.microsoft.icon" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
@@ -47,12 +48,14 @@ const navItems = [
 
 <style>
 	:root {
-		--bg: #f9fafb;
-		--surface: #ffffff;
-		--text: #1f2937;
-		--subtle: #6b7280;
-		--border: #d1d5db;
-		--accent: #2563eb;
+		--bg: #fff8f1;
+		--surface: #fffdf9;
+		--card-bg: #fffaf4;
+		--text: #3b2f2f;
+		--subtle: #6f5a4f;
+		--border: #efddcb;
+		--accent: #d86f45;
+		--accent-strong: #c7582f;
 	}
 
 	* {
@@ -64,7 +67,10 @@ const navItems = [
 		margin: 0;
 		padding: 0;
 		font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
-		background: var(--bg);
+		background:
+			radial-gradient(circle at 0% 0%, #ffe6d2 0%, transparent 48%),
+			radial-gradient(circle at 100% 100%, #ffeed6 0%, transparent 42%),
+			var(--bg);
 		color: var(--text);
 	}
 
@@ -78,8 +84,12 @@ const navItems = [
 	}
 
 	.site-header {
-		background: var(--surface);
+		background: linear-gradient(120deg, #fff8ef 0%, #fff1e2 100%);
 		border-bottom: 1px solid var(--border);
+		position: sticky;
+		top: 0;
+		backdrop-filter: blur(8px);
+		z-index: 10;
 	}
 
 	.header-inner {
@@ -92,7 +102,8 @@ const navItems = [
 
 	.brand {
 		text-decoration: none;
-		font-weight: 700;
+		font-weight: 800;
+		color: #8e3f23;
 	}
 
 	.nav-list {
@@ -106,10 +117,13 @@ const navItems = [
 	.nav-list a {
 		text-decoration: none;
 		color: var(--subtle);
+		padding: 0.2rem 0.35rem;
+		border-radius: 6px;
 	}
 
 	.nav-list a:hover {
-		color: var(--accent);
+		color: #8e3f23;
+		background: #ffe8d4;
 	}
 
 	main {
@@ -117,7 +131,7 @@ const navItems = [
 	}
 
 	.site-footer {
-		background: var(--surface);
+		background: #fff3e5;
 		border-top: 1px solid var(--border);
 		color: var(--subtle);
 		padding: 1.2rem 0;
@@ -135,3 +149,4 @@ const navItems = [
 		}
 	}
 </style>
+

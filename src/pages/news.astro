@@ -36,6 +36,7 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 <style>
 	h1 {
 		margin-top: 0;
+		color: #8e3f23;
 	}
 
 	h2 {
@@ -52,19 +53,21 @@ const dateFormatter = new Intl.DateTimeFormat('ja-JP', {
 	}
 
 	.card {
-		background: #fff;
-		border: 1px solid #d1d5db;
-		border-radius: 12px;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
 		padding: 1rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
 	}
 
 	.news-meta {
 		font-size: 0.9rem;
-		color: #6b7280;
+		color: var(--subtle);
 		margin-bottom: 0.3rem;
 	}
 
 	.text-link {
-		color: #2563eb;
+		color: #b94f2d;
+		font-weight: 600;
 	}
 </style>

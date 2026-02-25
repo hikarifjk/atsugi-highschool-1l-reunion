@@ -1,40 +1,15 @@
 ﻿[
 	{
-		"name": "Atsugi Tech Club",
-		"logo": "https://placehold.co/160x80?text=Tech+Club",
-		"youtube": "https://www.youtube.com/@example1",
-		"intro": "卒業後はIT系スタートアップでプロダクト開発に取り組んでいます。",
-		"link": "https://example.com/tech-club",
-		"categories": ["IT", "スタートアップ"]
-	},
-	{
-		"name": "Blue Sky Studio",
-		"logo": "https://placehold.co/160x80?text=Blue+Sky",
-		"youtube": "https://www.youtube.com/@example2",
-		"intro": "映像制作と音楽活動を続けながら、地域イベントにも参加中です。",
-		"link": "https://example.com/blue-sky",
-		"categories": ["クリエイティブ", "映像"]
-	},
-	{
-		"name": "Yamato Sports Lab",
-		"logo": "https://placehold.co/160x80?text=Sports+Lab",
-		"youtube": "https://www.youtube.com/@example3",
-		"intro": "スポーツ指導とコミュニティ運営を軸に活動しています。",
-		"link": "https://example.com/sports-lab",
-		"categories": ["スポーツ", "コミュニティ"]
-	},
-	{
-		"name": "及川さん(1L)",
-		"logo": "/images/oikawa-band-placeholder.svg",
+		"name": "リバティ・バランス",
 		"youtube": "https://youtube.com/channel/UCNPU3E49aVxuN_t6Grm8gRQ?si=lve0Z_Zv1D21Qfhq",
-		"intro": "及川さん(1L)がキーボーディストとして活動するバンド、リバティ・バランスのYouTubeチャネルです。",
+		"intro": "及川さん(1L)がキーボード奏者として活動するバンド、リバティ・バランスのYouTubeチャネルです。",
 		"categories": ["音楽", "バンド"]
 	},
 	{
-		"name": "牧内さん(1L)",
-		"logo": "/images/makiuchi-clinic-placeholder.svg",
-		"intro": "牧内さん(1L)開業の病院です。",
+		"name": "まきうち整形外科",
 		"link": "https://www.makiuchi-seikeigeka.jp/medical.html",
+		"intro": "牧内さん(1L)開業の整形外科病院です。",
 		"categories": ["医療", "整形外科"]
 	}
 ]
+

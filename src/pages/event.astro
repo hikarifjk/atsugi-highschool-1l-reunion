@@ -11,7 +11,7 @@ const tbd = '未定（決まり次第更新）';
 		<dl class="event-list">
 			<div>
 				<dt>開催日</dt>
-				<dd>{tbd}</dd>
+				<dd>未定(2026/05中旬以降)</dd>
 			</div>
 			<div>
 				<dt>開催時間</dt>
@@ -19,32 +19,31 @@ const tbd = '未定（決まり次第更新）';
 			</div>
 			<div>
 				<dt>開催場所</dt>
-				<dd>{tbd}</dd>
+				<dd>未定(田園都市線駅周辺で探します)</dd>
 			</div>
 			<div>
 				<dt>会費</dt>
 				<dd>{tbd}</dd>
 			</div>
-			<div>
-				<dt>ドレスコード</dt>
-				<dd>{tbd}</dd>
-			</div>
 		</dl>
 		<p>詳細が確定次第、このページで更新します。</p>
-		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">Googleフォームからご連絡</a>
+		<p class="cta-note"><strong>人数把握したいため、仮出欠登録にご協力ください。</strong></p>
+		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">仮出欠登録(Googleフォーム)</a>
 	</section>
 </Layout>
 
 <style>
 	h1 {
 		margin-top: 0;
+		color: #8e3f23;
 	}
 
 	.card {
-		background: #fff;
-		border: 1px solid #d1d5db;
-		border-radius: 12px;
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
 		padding: 1.2rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
 	}
 
 	.event-list {
@@ -55,20 +54,28 @@ const tbd = '未定（決まり次第更新）';
 
 	dt {
 		font-weight: 700;
+		color: #6c3f2a;
 	}
 
 	dd {
 		margin: 0.2rem 0 0;
-		color: #374151;
+		color: #3b2f2f;
+	}
+
+	.cta-note {
+		margin-bottom: 0.5rem;
+		font-size: 1.02rem;
+		color: #8b2f1e;
 	}
 
 	.form-button {
 		display: inline-block;
-		background: #2563eb;
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
 		color: #fff;
 		text-decoration: none;
 		font-weight: 700;
-		padding: 0.9rem 1.5rem;
-		border-radius: 10px;
+		padding: 0.95rem 1.6rem;
+		border-radius: 12px;
+		box-shadow: 0 6px 16px rgba(200, 88, 47, 0.35);
 	}
 </style>
