@@ -3,7 +3,7 @@ interface Props {
 	title?: string;
 }
 
-const { title = '厚木高校1L 同窓会' } = Astro.props;
+const { title = '厚木高校1L+α 同窓会' } = Astro.props;
 const navItems = [
 	{ href: '/', label: 'トップ' },
 	{ href: '/event', label: '開催詳細' },
@@ -24,7 +24,7 @@ const navItems = [
 	<body>
 		<header class="site-header">
 			<div class="container header-inner">
-				<a class="brand" href="/">厚木高校1L 同窓会</a>
+				<a class="brand" href="/">厚木高校1L+α 同窓会</a>
 				<nav>
 					<ul class="nav-list">
 						{
@@ -40,7 +40,7 @@ const navItems = [
 			<slot />
 		</main>
 		<footer class="site-footer">
-			<div class="container">© {new Date().getFullYear()} 厚木高校1L 同窓会</div>
+			<div class="container">&copy; {new Date().getFullYear()} 厚木高校1L+α 同窓会</div>
 		</footer>
 	</body>
 </html>

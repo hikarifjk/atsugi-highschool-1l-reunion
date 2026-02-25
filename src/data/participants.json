@@ -22,5 +22,19 @@
 		"intro": "スポーツ指導とコミュニティ運営を軸に活動しています。",
 		"link": "https://example.com/sports-lab",
 		"categories": ["スポーツ", "コミュニティ"]
+	},
+	{
+		"name": "及川さん(1L)",
+		"logo": "/images/oikawa-band-placeholder.svg",
+		"youtube": "https://youtube.com/channel/UCNPU3E49aVxuN_t6Grm8gRQ?si=lve0Z_Zv1D21Qfhq",
+		"intro": "及川さん(1L)がキーボーディストとして活動するバンド、リバティ・バランスのYouTubeチャネルです。",
+		"categories": ["音楽", "バンド"]
+	},
+	{
+		"name": "牧内さん(1L)",
+		"logo": "/images/makiuchi-clinic-placeholder.svg",
+		"intro": "牧内さん(1L)開業の病院です。",
+		"link": "https://www.makiuchi-seikeigeka.jp/medical.html",
+		"categories": ["医療", "整形外科"]
 	}
 ]
