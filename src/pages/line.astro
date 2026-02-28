@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const qrImagePath = `${base}images/atsugi-qr-code.png`;
+---
+
+<Layout title="厚木高校1年L組+α 同窓会 グループライン">
+	<section class="line-group card">
+		<h1>厚木高校1年L組+α 同窓会 グループライン</h1>
+		<p>参加希望の方は、以下のQRコードからグループラインへご参加ください。</p>
+		<img src={qrImagePath} alt="厚木高校1年L組+α 同窓会 グループライン参加用QRコード" loading="lazy" />
+	</section>
+</Layout>
+
+<style>
+	h1 {
+		font-size: clamp(1.6rem, 3vw, 2.1rem);
+		margin: 0 0 1rem;
+		color: #8e3f23;
+	}
+
+	p {
+		margin: 0 0 1rem;
+		line-height: 1.7;
+	}
+
+	.card {
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 1rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
+	}
+
+	.line-group img {
+		width: min(320px, 100%);
+		height: auto;
+		border-radius: 10px;
+		border: 1px solid #ead6c3;
+		background: #fff;
+	}
+</style>

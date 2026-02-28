@@ -4,11 +4,12 @@ interface Props {
 }
 
 const { title = '厚木高校1L+α 同窓会' } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const homeHref = `${base}index.html`;
 const navItems = [
-	{ href: base, label: 'トップ' },
-	{ href: `${base}/event`, label: '開催詳細' },
-	{ href: `${base}/news`, label: '最新情報' },
+	{ href: homeHref, label: 'トップ' },
+	{ href: `${base}event/`, label: '開催詳細' },
+	{ href: `${base}news/`, label: '最新情報' },
 ];
 const schoolFavicon = 'https://www.pen-kanagawa.ed.jp/shared/images/logo/136.png';
 ---
@@ -26,7 +27,7 @@ const schoolFavicon = 'https://www.pen-kanagawa.ed.jp/shared/images/logo/136.png
 	<body>
 		<header class="site-header">
 			<div class="container header-inner">
-				<a class="brand" href="/">厚木高校1L+α 同窓会</a>
+				<a class="brand" href={homeHref}>厚木高校1L+α 同窓会</a>
 				<nav>
 					<ul class="nav-list">
 						{
@@ -150,5 +151,3 @@ const schoolFavicon = 'https://www.pen-kanagawa.ed.jp/shared/images/logo/136.png
 		}
 	}
 </style>
-
-
