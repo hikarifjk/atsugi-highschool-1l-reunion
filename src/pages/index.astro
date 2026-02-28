@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import participants from '../data/participants.json';
 import { getCollection } from 'astro:content';
 
-const formUrl = 'https://example.com/google-form';
+const formUrl = 'https://forms.gle/LENe45WA9RH7LULm8';
 const schoolTopImage = 'https://www.pen-kanagawa.ed.jp/atsugi-h/seikatsu/images/img_3365-1.jpg';
 const latestNews = (await getCollection('news')).sort(
 	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
