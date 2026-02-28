@@ -4,10 +4,11 @@ interface Props {
 }
 
 const { title = '厚木高校1L+α 同窓会' } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const navItems = [
-	{ href: '/', label: 'トップ' },
-	{ href: '/event', label: '開催詳細' },
-	{ href: '/news', label: '最新情報' },
+	{ href: base, label: 'トップ' },
+	{ href: `${base}/event`, label: '開催詳細' },
+	{ href: `${base}/news`, label: '最新情報' },
 ];
 const schoolFavicon = 'https://www.pen-kanagawa.ed.jp/shared/images/logo/136.png';
 ---
