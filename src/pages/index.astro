@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 
 const formUrl = 'https://forms.gle/LENe45WA9RH7LULm8';
 const schoolTopImage = 'https://www.pen-kanagawa.ed.jp/atsugi-h/seikatsu/images/img_3365-1.jpg';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const latestNews = (await getCollection('news')).sort(
 	(a, b) => b.data.date.getTime() - a.data.date.getTime(),
 ).slice(0, 5);
@@ -51,6 +52,12 @@ const participantCards = participants.map((participant) => {
 		<p>発起人代表 藤岡 光（1年L組）</p>
 		<p class="cta-note"><strong>人数把握したいため、仮出欠登録にご協力ください。</strong></p>
 		<a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">仮出欠登録(Googleフォーム)</a>
+	</section>
+
+	<section class="section-block">
+		<h2>LINEグループ</h2>
+		<p>同窓会に関する連絡はLINEグループでもお知らせします。参加希望の方は専用ページからご参加ください。</p>
+		<p><a class="form-button" href={`${base}line/`}>Line QRコード表示</a></p>
 	</section>
 
 	<section class="section-block">
@@ -216,4 +223,3 @@ const participantCards = participants.map((participant) => {
 		font-weight: 600;
 	}
 </style>
-
