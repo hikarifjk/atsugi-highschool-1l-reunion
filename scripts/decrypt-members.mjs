@@ -10,7 +10,7 @@ const password = process.env.MEMBERS_PASSWORD;
 
 if (!password) {
 	console.error('MEMBERS_PASSWORD を指定してください。');
-	console.error('例: MEMBERS_PASSWORD=tomuro npm run members:decrypt');
+	console.error('例: MEMBERS_PASSWORD=your-password npm run members:decrypt');
 	process.exit(1);
 }
 

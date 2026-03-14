@@ -11,7 +11,7 @@ const iterations = 210000;
 
 if (!password) {
 	console.error('MEMBERS_PASSWORD を指定してください。');
-	console.error('例: MEMBERS_PASSWORD=tomuro npm run members:encrypt');
+	console.error('例: MEMBERS_PASSWORD=your-password npm run members:encrypt');
 	process.exit(1);
 }
 
