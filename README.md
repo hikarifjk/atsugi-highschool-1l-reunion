@@ -1,46 +1,66 @@
-# Astro Starter Kit: Basics
+# 厚木高校1L+α 同窓会サイト
 
-```sh
-npm create astro@latest -- --template basics
+Astro で作成している同窓会案内サイトです。  
+GitHub Pages 配下での公開を前提にしています。
+
+## 主なコマンド
+
+プロジェクトルートで実行します。
+
+| コマンド | 内容 |
+| :-- | :-- |
+| `npm install` | 依存関係をインストール |
+| `npm run dev` | 開発サーバーを起動 |
+| `npm run build` | 本番用の静的ファイルを `dist/` に出力 |
+| `npm run preview` | ビルド結果をローカル確認 |
+| `npm run members:decrypt` | メンバーページの暗号化データをローカル編集用JSONに復元 |
+| `npm run members:encrypt` | ローカル編集用JSONから暗号化データを再生成 |
+
+## メンバーページの更新方法
+
+`/members` ページの内容は、そのままの平文では保持せず、暗号化した blob を [src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) に保存しています。  
+直接 `blob` を編集するのではなく、ローカル編集用JSONを使って更新します。
+
+### 1. ローカル編集用JSONを復元
+
+```bash
+MEMBERS_PASSWORD=合言葉 npm run members:decrypt
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+実行すると、`src/members-content.local.json` が作成されます。
 
-## 🚀 Project Structure
+### 2. 内容を編集
 
-Inside of your Astro project, you'll see the following folders and files:
+`src/members-content.local.json` を編集します。
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+### 3. 暗号化データを再生成
+
+```bash
+MEMBERS_PASSWORD=合言葉 npm run members:encrypt
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+実行すると、[src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) の暗号化データが更新されます。
 
-## 🧞 Commands
+### 4. ビルド確認
 
-All commands are run from the root of the project, from a terminal:
+```bash
+npm run build
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+必要に応じて、以下も実行します。
 
-## 👀 Want to learn more?
+```bash
+npm run preview
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## メンバーページ運用上の注意
+
+- `src/members-content.local.json` は `.gitignore` 対象です。コミットしません。
+- [src/members-content.example.json](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/members-content.example.json) は形式確認用のサンプルです。
+- [src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) は生成物です。手で編集しません。
+- 合言葉は `MEMBERS_PASSWORD` としてコマンド実行時に渡してください。
+
+## 補足
+
+この仕組みは「公開HTMLに平文を出さない」ことを目的にしたもので、完全な秘匿を保証するものではありません。  
+公開リポジトリ・静的配信という前提の中で、うっかり見えにくくするための運用です。

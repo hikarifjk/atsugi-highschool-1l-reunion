@@ -1,15 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { MEMBERS_PASSWORD_HASH } from '../config';
+import { MEMBERS_CONTENT_BLOB } from '../config';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const qrImagePath = `${base}images/atsugi-qr-code.png`;
-const formUrl = 'https://forms.gle/LENe45WA9RH7LULm8';
-const membersPasswordHash = MEMBERS_PASSWORD_HASH;
+const membersContentBlob = MEMBERS_CONTENT_BLOB;
 ---
 
 <Layout title="厚木高校1L+α 同窓会 | メンバー向けページ" noindex={true}>
-	<section class="card gate-section" data-members-app data-password-hash={membersPasswordHash}>
+	<section class="card gate-section" data-members-app>
 		<div class="gate-panel" data-gate-panel>
 			<h1>メンバー向けページ</h1>
 			<p>案内を受け取った方は、合言葉を入力してメンバー向け情報をご確認ください。</p>
@@ -21,57 +19,13 @@ const membersPasswordHash = MEMBERS_PASSWORD_HASH;
 			<p class="status-message" data-status-message aria-live="polite"></p>
 		</div>
 
-		<div class="members-content hidden" data-members-content>
-			<div class="members-header">
-				<h1>厚木高校1年L組+α 同窓会 メンバー向けページ</h1>
-				<p>参加登録、開催概要、グループLINEの案内はこのページから確認できます。</p>
-			</div>
-			<section class="content-block">
-				<h2>開催概要</h2>
-				<dl class="event-list">
-					<div>
-						<dt>開催日</dt>
-						<dd>未定(2026/05中旬以降)</dd>
-					</div>
-					<div>
-						<dt>開催時間</dt>
-						<dd>未定（決まり次第更新）</dd>
-					</div>
-					<div>
-						<dt>開催場所</dt>
-						<dd>未定(田園都市線駅周辺で探します)</dd>
-					</div>
-					<div>
-						<dt>会費</dt>
-						<dd>未定（決まり次第更新）</dd>
-					</div>
-				</dl>
-			</section>
-
-			<section class="content-block">
-				<h2>仮出欠登録フォーム</h2>
-				<p>参加人数の目安を把握するため、まずは仮出欠登録にご協力ください。</p>
-				<p>正式な出欠確認ではありませんので、現時点での予定でお気軽にご回答ください。</p>
-				<p><a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">仮出欠登録(Googleフォーム)</a></p>
-			</section>
-
-			<section class="content-block">
-				<h2>LINEグループ</h2>
-				<p>厚木高校1L+α同窓会のLINEグループです。</p>
-				<p>皆さまの声を同窓会づくりに活かしていきたいと思っていますので、よろしければぜひご参加ください。</p>
-				<img src={qrImagePath} alt="厚木高校1年L組+α 同窓会 LINEグループQRコード" loading="lazy" />
-			</section>
-		</div>
+		<div class="members-content hidden" data-members-content></div>
 	</section>
 </Layout>
 
-<script is:inline define:vars={{ membersPasswordHash }}>
+<script is:inline define:vars={{ base, membersContentBlob }}>
 	const encoder = new TextEncoder();
-
-	const toHex = (buffer) =>
-		Array.from(new Uint8Array(buffer))
-			.map((value) => value.toString(16).padStart(2, '0'))
-			.join('');
+	const decoder = new TextDecoder();
 
 	const app = document.querySelector('[data-members-app]');
 	const form = app?.querySelector('[data-gate-form]');
@@ -79,23 +33,174 @@ const membersPasswordHash = MEMBERS_PASSWORD_HASH;
 	const gatePanel = app?.querySelector('[data-gate-panel]');
 	const membersContent = app?.querySelector('[data-members-content]');
 
+	const fromBase64 = (value) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+
+	const appendParagraph = (parent, text) => {
+		const element = document.createElement('p');
+		element.textContent = text;
+		parent.appendChild(element);
+	};
+
+	const renderOverviewSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		const list = document.createElement('dl');
+		list.className = 'event-list';
+
+		section.items.forEach(([termText, descriptionText]) => {
+			const row = document.createElement('div');
+			const term = document.createElement('dt');
+			const description = document.createElement('dd');
+
+			term.textContent = termText;
+			description.textContent = descriptionText;
+			row.append(term, description);
+			list.appendChild(row);
+		});
+
+		wrapper.appendChild(list);
+		return wrapper;
+	};
+
+	const renderFormSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		section.paragraphs.forEach((text) => appendParagraph(wrapper, text));
+
+		const buttonRow = document.createElement('p');
+		const link = document.createElement('a');
+		link.className = 'form-button';
+		link.href = section.linkUrl;
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';
+		link.textContent = section.linkLabel;
+		buttonRow.appendChild(link);
+		wrapper.appendChild(buttonRow);
+
+		return wrapper;
+	};
+
+	const renderLineSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		section.paragraphs.forEach((text) => appendParagraph(wrapper, text));
+
+		const image = document.createElement('img');
+		image.src = `${base}images/${section.imageName}`;
+		image.alt = section.imageAlt;
+		image.loading = 'lazy';
+		wrapper.appendChild(image);
+
+		return wrapper;
+	};
+
+	const renderMembersPage = (payload) => {
+		if (!membersContent) return;
+
+		membersContent.innerHTML = '';
+
+		const header = document.createElement('div');
+		header.className = 'members-header';
+
+		const title = document.createElement('h1');
+		title.textContent = payload.pageTitle;
+		header.appendChild(title);
+
+		appendParagraph(header, payload.pageLead);
+		membersContent.appendChild(header);
+
+		payload.sections.forEach((section) => {
+			if (section.kind === 'overview') {
+				membersContent.appendChild(renderOverviewSection(section));
+				return;
+			}
+
+			if (section.kind === 'form') {
+				membersContent.appendChild(renderFormSection(section));
+				return;
+			}
+
+			if (section.kind === 'line') {
+				membersContent.appendChild(renderLineSection(section));
+			}
+		});
+	};
+
+	const decryptMembersPayload = async (password) => {
+		const salt = fromBase64(membersContentBlob.salt);
+		const iv = fromBase64(membersContentBlob.iv);
+		const ciphertext = fromBase64(membersContentBlob.ciphertext);
+		const tag = fromBase64(membersContentBlob.tag);
+		const combined = new Uint8Array(ciphertext.length + tag.length);
+
+		combined.set(ciphertext, 0);
+		combined.set(tag, ciphertext.length);
+
+		const keyMaterial = await crypto.subtle.importKey(
+			'raw',
+			encoder.encode(password),
+			'PBKDF2',
+			false,
+			['deriveKey'],
+		);
+		const key = await crypto.subtle.deriveKey(
+			{
+				name: 'PBKDF2',
+				salt,
+				iterations: membersContentBlob.iterations,
+				hash: 'SHA-256',
+			},
+			keyMaterial,
+			{
+				name: 'AES-GCM',
+				length: 256,
+			},
+			false,
+			['decrypt'],
+		);
+		const plaintext = await crypto.subtle.decrypt(
+			{
+				name: 'AES-GCM',
+				iv,
+			},
+			key,
+			combined,
+		);
+
+		return JSON.parse(decoder.decode(plaintext));
+	};
+
 	if (form && statusMessage && gatePanel && membersContent) {
 		form.addEventListener('submit', async (event) => {
 			event.preventDefault();
 
 			const formData = new FormData(form);
 			const password = String(formData.get('password') ?? '').trim();
-			const digest = await crypto.subtle.digest('SHA-256', encoder.encode(password));
-			const passwordHash = toHex(digest);
 
-			if (passwordHash === membersPasswordHash) {
+			try {
+				const payload = await decryptMembersPayload(password);
 				statusMessage.textContent = '';
+				renderMembersPage(payload);
 				gatePanel.classList.add('hidden');
 				membersContent.classList.remove('hidden');
-				return;
+			} catch {
+				statusMessage.textContent = '合言葉が一致しません。';
 			}
-
-			statusMessage.textContent = '合言葉が一致しません。';
 		});
 	}
 </script>
