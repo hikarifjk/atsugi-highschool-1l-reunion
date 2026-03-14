@@ -2,10 +2,10 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-import { MEMBERS_CONTENT_BLOB } from '../src/config.ts';
 
 const rootDir = process.cwd();
 const localContentPath = path.join(rootDir, 'src', 'members-content.local.json');
+const blobPath = path.join(rootDir, 'src', 'members-content.blob.json');
 const password = process.env.MEMBERS_PASSWORD;
 
 if (!password) {
@@ -14,11 +14,14 @@ if (!password) {
 	process.exit(1);
 }
 
-const salt = Buffer.from(MEMBERS_CONTENT_BLOB.salt, 'base64');
-const iv = Buffer.from(MEMBERS_CONTENT_BLOB.iv, 'base64');
-const ciphertext = Buffer.from(MEMBERS_CONTENT_BLOB.ciphertext, 'base64');
-const tag = Buffer.from(MEMBERS_CONTENT_BLOB.tag, 'base64');
-const key = crypto.pbkdf2Sync(password, salt, MEMBERS_CONTENT_BLOB.iterations, 32, 'sha256');
+const blobText = await fs.readFile(blobPath, 'utf8');
+const membersContentBlob = JSON.parse(blobText);
+
+const salt = Buffer.from(membersContentBlob.salt, 'base64');
+const iv = Buffer.from(membersContentBlob.iv, 'base64');
+const ciphertext = Buffer.from(membersContentBlob.ciphertext, 'base64');
+const tag = Buffer.from(membersContentBlob.tag, 'base64');
+const key = crypto.pbkdf2Sync(password, salt, membersContentBlob.iterations, 32, 'sha256');
 const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
 
 decipher.setAuthTag(tag);

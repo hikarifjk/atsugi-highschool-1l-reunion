@@ -18,7 +18,7 @@ GitHub Pages 配下での公開を前提にしています。
 
 ## メンバーページの更新方法
 
-`/members` ページの内容は、そのままの平文では保持せず、暗号化した blob を [src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) に保存しています。  
+`/members` ページの内容は、そのままの平文では保持せず、暗号化した blob を [src/members-content.blob.json](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/members-content.blob.json) に保存しています。  
 直接 `blob` を編集するのではなく、ローカル編集用JSONを使って更新します。
 
 ### 1. ローカル編集用JSONを復元
@@ -39,7 +39,7 @@ MEMBERS_PASSWORD=合言葉 npm run members:decrypt
 MEMBERS_PASSWORD=合言葉 npm run members:encrypt
 ```
 
-実行すると、[src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) の暗号化データが更新されます。
+実行すると、[src/members-content.blob.json](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/members-content.blob.json) の暗号化データが更新されます。
 
 ### 4. ビルド確認
 
@@ -57,7 +57,7 @@ npm run preview
 
 - `src/members-content.local.json` は `.gitignore` 対象です。コミットしません。
 - [src/members-content.example.json](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/members-content.example.json) は形式確認用のサンプルです。
-- [src/config.ts](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/config.ts) は生成物です。手で編集しません。
+- [src/members-content.blob.json](/home/hfujioka/dev/atsugi-highschool-1l-reunion/src/members-content.blob.json) は生成物です。手で編集しません。
 - 合言葉は `MEMBERS_PASSWORD` としてコマンド実行時に渡してください。
 
 ## 補足
