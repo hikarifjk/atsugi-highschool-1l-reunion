@@ -11,11 +11,11 @@ const membersContentBlob = MEMBERS_CONTENT_BLOB;
 		<div class="gate-panel" data-gate-panel>
 			<h1>メンバー向けページ</h1>
 			<p>案内を受け取った方は、合言葉を入力してメンバー向け情報をご確認ください。</p>
-			<form class="gate-form" data-gate-form method="post">
+			<div class="gate-form" data-gate-form>
 				<label for="members-password">合言葉</label>
-				<input id="members-password" name="password" type="password" autocomplete="off" required />
-				<button type="submit">表示する</button>
-			</form>
+				<input id="members-password" data-password-input type="password" autocomplete="off" required />
+				<button type="button" data-submit-button>表示する</button>
+			</div>
 			<p class="status-message" data-status-message aria-live="polite"></p>
 		</div>
 
@@ -29,6 +29,8 @@ const membersContentBlob = MEMBERS_CONTENT_BLOB;
 
 	const app = document.querySelector('[data-members-app]');
 	const form = app?.querySelector('[data-gate-form]');
+	const passwordInput = app?.querySelector('[data-password-input]');
+	const submitButton = app?.querySelector('[data-submit-button]');
 	const statusMessage = app?.querySelector('[data-status-message]');
 	const gatePanel = app?.querySelector('[data-gate-panel]');
 	const membersContent = app?.querySelector('[data-members-content]');
@@ -185,22 +187,30 @@ const membersContentBlob = MEMBERS_CONTENT_BLOB;
 		return JSON.parse(decoder.decode(plaintext));
 	};
 
-	if (form && statusMessage && gatePanel && membersContent) {
-		form.addEventListener('submit', async (event) => {
+	const unlockMembersPage = async () => {
+		if (!passwordInput || !statusMessage || !gatePanel || !membersContent) return;
+		const password = passwordInput.value.trim();
+
+		try {
+			const payload = await decryptMembersPayload(password);
+			statusMessage.textContent = '';
+			renderMembersPage(payload);
+			gatePanel.classList.add('hidden');
+			membersContent.classList.remove('hidden');
+		} catch {
+			statusMessage.textContent = '合言葉が一致しません。';
+		}
+	};
+
+	if (form && passwordInput && submitButton && statusMessage && gatePanel && membersContent) {
+		submitButton.addEventListener('click', () => {
+			void unlockMembersPage();
+		});
+
+		passwordInput.addEventListener('keydown', (event) => {
+			if (event.key !== 'Enter') return;
 			event.preventDefault();
-
-			const formData = new FormData(form);
-			const password = String(formData.get('password') ?? '').trim();
-
-			try {
-				const payload = await decryptMembersPayload(password);
-				statusMessage.textContent = '';
-				renderMembersPage(payload);
-				gatePanel.classList.add('hidden');
-				membersContent.classList.remove('hidden');
-			} catch {
-				statusMessage.textContent = '合言葉が一致しません。';
-			}
+			void unlockMembersPage();
 		});
 	}
 </script>
