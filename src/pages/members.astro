@@ -1,0 +1,221 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { MEMBERS_PASSWORD_HASH } from '../config';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const qrImagePath = `${base}images/atsugi-qr-code.png`;
+const formUrl = 'https://forms.gle/LENe45WA9RH7LULm8';
+const membersPasswordHash = MEMBERS_PASSWORD_HASH;
+---
+
+<Layout title="厚木高校1L+α 同窓会 | メンバー向けページ" noindex={true}>
+	<section class="card gate-section" data-members-app data-password-hash={membersPasswordHash}>
+		<div class="gate-panel" data-gate-panel>
+			<h1>メンバー向けページ</h1>
+			<p>案内を受け取った方は、合言葉を入力してメンバー向け情報をご確認ください。</p>
+			<form class="gate-form" data-gate-form>
+				<label for="members-password">合言葉</label>
+				<input id="members-password" name="password" type="password" autocomplete="off" required />
+				<button type="submit">表示する</button>
+			</form>
+			<p class="status-message" data-status-message aria-live="polite"></p>
+		</div>
+
+		<div class="members-content hidden" data-members-content>
+			<div class="members-header">
+				<h1>厚木高校1年L組+α 同窓会 メンバー向けページ</h1>
+				<p>参加登録、開催概要、グループLINEの案内はこのページから確認できます。</p>
+			</div>
+			<section class="content-block">
+				<h2>開催概要</h2>
+				<dl class="event-list">
+					<div>
+						<dt>開催日</dt>
+						<dd>未定(2026/05中旬以降)</dd>
+					</div>
+					<div>
+						<dt>開催時間</dt>
+						<dd>未定（決まり次第更新）</dd>
+					</div>
+					<div>
+						<dt>開催場所</dt>
+						<dd>未定(田園都市線駅周辺で探します)</dd>
+					</div>
+					<div>
+						<dt>会費</dt>
+						<dd>未定（決まり次第更新）</dd>
+					</div>
+				</dl>
+			</section>
+
+			<section class="content-block">
+				<h2>仮出欠登録フォーム</h2>
+				<p>参加人数の目安を把握するため、まずは仮出欠登録にご協力ください。</p>
+				<p>正式な出欠確認ではありませんので、現時点での予定でお気軽にご回答ください。</p>
+				<p><a class="form-button" href={formUrl} target="_blank" rel="noopener noreferrer">仮出欠登録(Googleフォーム)</a></p>
+			</section>
+
+			<section class="content-block">
+				<h2>LINEグループ</h2>
+				<p>厚木高校1L+α同窓会のLINEグループです。</p>
+				<p>皆さまの声を同窓会づくりに活かしていきたいと思っていますので、よろしければぜひご参加ください。</p>
+				<img src={qrImagePath} alt="厚木高校1年L組+α 同窓会 LINEグループQRコード" loading="lazy" />
+			</section>
+		</div>
+	</section>
+</Layout>
+
+<script is:inline define:vars={{ membersPasswordHash }}>
+	const encoder = new TextEncoder();
+
+	const toHex = (buffer) =>
+		Array.from(new Uint8Array(buffer))
+			.map((value) => value.toString(16).padStart(2, '0'))
+			.join('');
+
+	const app = document.querySelector('[data-members-app]');
+	const form = app?.querySelector('[data-gate-form]');
+	const statusMessage = app?.querySelector('[data-status-message]');
+	const gatePanel = app?.querySelector('[data-gate-panel]');
+	const membersContent = app?.querySelector('[data-members-content]');
+
+	if (form && statusMessage && gatePanel && membersContent) {
+		form.addEventListener('submit', async (event) => {
+			event.preventDefault();
+
+			const formData = new FormData(form);
+			const password = String(formData.get('password') ?? '').trim();
+			const digest = await crypto.subtle.digest('SHA-256', encoder.encode(password));
+			const passwordHash = toHex(digest);
+
+			if (passwordHash === membersPasswordHash) {
+				statusMessage.textContent = '';
+				gatePanel.classList.add('hidden');
+				membersContent.classList.remove('hidden');
+				return;
+			}
+
+			statusMessage.textContent = '合言葉が一致しません。';
+		});
+	}
+</script>
+
+<style>
+	h1 {
+		font-size: clamp(1.6rem, 3vw, 2.1rem);
+		margin: 0 0 1rem;
+		color: #8e3f23;
+	}
+
+	h2 {
+		margin: 0 0 0.8rem;
+		color: #8e3f23;
+	}
+
+	p {
+		margin: 0 0 0.9rem;
+		line-height: 1.7;
+	}
+
+	label {
+		font-weight: 700;
+		color: #6c3f2a;
+	}
+
+	input {
+		width: 100%;
+		padding: 0.9rem 1rem;
+		border: 1px solid #d8bea9;
+		border-radius: 10px;
+		font: inherit;
+		background: #fffdf9;
+	}
+
+	button,
+	.form-button {
+		display: inline-block;
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+		color: #fff;
+		text-decoration: none;
+		font-weight: 700;
+		padding: 0.95rem 1.6rem;
+		border-radius: 12px;
+		border: 0;
+		box-shadow: 0 6px 16px rgba(200, 88, 47, 0.35);
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.card {
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 1.2rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
+	}
+
+	.gate-section {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.gate-form {
+		display: grid;
+		gap: 0.8rem;
+		max-width: 420px;
+	}
+
+	.status-message {
+		min-height: 1.5rem;
+		margin-bottom: 0;
+		color: #8b2f1e;
+		font-weight: 600;
+	}
+
+	.members-content {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.members-header {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.content-block {
+		padding-top: 1rem;
+		border-top: 1px solid #ead6c3;
+	}
+
+	.content-block:first-of-type {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.event-list {
+		margin: 0;
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	dt {
+		font-weight: 700;
+		color: #6c3f2a;
+	}
+
+	dd {
+		margin: 0.2rem 0 0;
+	}
+
+	img {
+		width: min(320px, 100%);
+		height: auto;
+		border-radius: 10px;
+		border: 1px solid #ead6c3;
+		background: #fff;
+	}
+
+	.hidden {
+		display: none;
+	}
+</style>
