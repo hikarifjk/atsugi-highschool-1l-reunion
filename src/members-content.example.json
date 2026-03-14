@@ -1,0 +1,36 @@
+{
+  "pageTitle": "厚木高校1年L組+α 同窓会 メンバー向けページ",
+  "pageLead": "参加登録、開催概要、グループLINEの案内はこのページから確認できます。",
+  "sections": [
+    {
+      "kind": "overview",
+      "heading": "開催概要",
+      "items": [
+        ["開催日", "ここを書き換えてください"],
+        ["開催時間", "ここを書き換えてください"],
+        ["開催場所", "ここを書き換えてください"],
+        ["会費", "ここを書き換えてください"]
+      ]
+    },
+    {
+      "kind": "form",
+      "heading": "仮出欠登録フォーム",
+      "paragraphs": [
+        "ここを書き換えてください",
+        "ここを書き換えてください"
+      ],
+      "linkLabel": "仮出欠登録(Googleフォーム)",
+      "linkUrl": "https://example.com/"
+    },
+    {
+      "kind": "line",
+      "heading": "LINEグループ",
+      "paragraphs": [
+        "ここを書き換えてください",
+        "ここを書き換えてください"
+      ],
+      "imageName": "atsugi-qr-code.png",
+      "imageAlt": "LINEグループQRコード"
+    }
+  ]
+}

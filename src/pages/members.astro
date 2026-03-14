@@ -1,0 +1,335 @@
+---
+import Layout from '../layouts/Layout.astro';
+import membersContentBlob from '../members-content.blob.json';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout title="厚木高校1L+α 同窓会 | メンバー向けページ" noindex={true}>
+	<section class="card gate-section" data-members-app>
+		<div class="gate-panel" data-gate-panel>
+			<h1>メンバー向けページ</h1>
+			<p>案内を受け取った方は、合言葉を入力してメンバー向け情報をご確認ください。</p>
+			<div class="gate-form" data-gate-form>
+				<label for="members-password">合言葉</label>
+				<input id="members-password" data-password-input type="password" autocomplete="off" required />
+				<button type="button" data-submit-button>表示する</button>
+			</div>
+			<p class="status-message" data-status-message aria-live="polite"></p>
+		</div>
+
+		<div class="members-content hidden" data-members-content></div>
+	</section>
+</Layout>
+
+<script is:inline define:vars={{ base, membersContentBlob }}>
+	const encoder = new TextEncoder();
+	const decoder = new TextDecoder();
+
+	const app = document.querySelector('[data-members-app]');
+	const form = app?.querySelector('[data-gate-form]');
+	const passwordInput = app?.querySelector('[data-password-input]');
+	const submitButton = app?.querySelector('[data-submit-button]');
+	const statusMessage = app?.querySelector('[data-status-message]');
+	const gatePanel = app?.querySelector('[data-gate-panel]');
+	const membersContent = app?.querySelector('[data-members-content]');
+
+	const fromBase64 = (value) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+
+	const appendParagraph = (parent, text) => {
+		const element = document.createElement('p');
+		element.textContent = text;
+		parent.appendChild(element);
+	};
+
+	const renderOverviewSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		const list = document.createElement('dl');
+		list.className = 'event-list';
+
+		section.items.forEach(([termText, descriptionText]) => {
+			const row = document.createElement('div');
+			const term = document.createElement('dt');
+			const description = document.createElement('dd');
+
+			term.textContent = termText;
+			description.textContent = descriptionText;
+			row.append(term, description);
+			list.appendChild(row);
+		});
+
+		wrapper.appendChild(list);
+		return wrapper;
+	};
+
+	const renderFormSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		section.paragraphs.forEach((text) => appendParagraph(wrapper, text));
+
+		const buttonRow = document.createElement('p');
+		const link = document.createElement('a');
+		link.className = 'form-button';
+		link.href = section.linkUrl;
+		link.target = '_blank';
+		link.rel = 'noopener noreferrer';
+		link.textContent = section.linkLabel;
+		buttonRow.appendChild(link);
+		wrapper.appendChild(buttonRow);
+
+		return wrapper;
+	};
+
+	const renderLineSection = (section) => {
+		const wrapper = document.createElement('section');
+		wrapper.className = 'content-block';
+
+		const heading = document.createElement('h2');
+		heading.textContent = section.heading;
+		wrapper.appendChild(heading);
+
+		section.paragraphs.forEach((text) => appendParagraph(wrapper, text));
+
+		const image = document.createElement('img');
+		image.src = `${base}images/${section.imageName}`;
+		image.alt = section.imageAlt;
+		image.loading = 'lazy';
+		wrapper.appendChild(image);
+
+		return wrapper;
+	};
+
+	const renderMembersPage = (payload) => {
+		if (!membersContent) return;
+
+		membersContent.innerHTML = '';
+
+		const header = document.createElement('div');
+		header.className = 'members-header';
+
+		const title = document.createElement('h1');
+		title.textContent = payload.pageTitle;
+		header.appendChild(title);
+
+		appendParagraph(header, payload.pageLead);
+		membersContent.appendChild(header);
+
+		payload.sections.forEach((section) => {
+			if (section.kind === 'overview') {
+				membersContent.appendChild(renderOverviewSection(section));
+				return;
+			}
+
+			if (section.kind === 'form') {
+				membersContent.appendChild(renderFormSection(section));
+				return;
+			}
+
+			if (section.kind === 'line') {
+				membersContent.appendChild(renderLineSection(section));
+			}
+		});
+	};
+
+	const decryptMembersPayload = async (password) => {
+		const salt = fromBase64(membersContentBlob.salt);
+		const iv = fromBase64(membersContentBlob.iv);
+		const ciphertext = fromBase64(membersContentBlob.ciphertext);
+		const tag = fromBase64(membersContentBlob.tag);
+		const combined = new Uint8Array(ciphertext.length + tag.length);
+
+		combined.set(ciphertext, 0);
+		combined.set(tag, ciphertext.length);
+
+		const keyMaterial = await crypto.subtle.importKey(
+			'raw',
+			encoder.encode(password),
+			'PBKDF2',
+			false,
+			['deriveKey'],
+		);
+		const key = await crypto.subtle.deriveKey(
+			{
+				name: 'PBKDF2',
+				salt,
+				iterations: membersContentBlob.iterations,
+				hash: 'SHA-256',
+			},
+			keyMaterial,
+			{
+				name: 'AES-GCM',
+				length: 256,
+			},
+			false,
+			['decrypt'],
+		);
+		const plaintext = await crypto.subtle.decrypt(
+			{
+				name: 'AES-GCM',
+				iv,
+			},
+			key,
+			combined,
+		);
+
+		return JSON.parse(decoder.decode(plaintext));
+	};
+
+	const unlockMembersPage = async () => {
+		if (!passwordInput || !statusMessage || !gatePanel || !membersContent) return;
+		const password = passwordInput.value.trim();
+
+		try {
+			const payload = await decryptMembersPayload(password);
+			statusMessage.textContent = '';
+			renderMembersPage(payload);
+			gatePanel.classList.add('hidden');
+			membersContent.classList.remove('hidden');
+		} catch {
+			statusMessage.textContent = '合言葉が一致しません。';
+		}
+	};
+
+	if (form && passwordInput && submitButton && statusMessage && gatePanel && membersContent) {
+		submitButton.addEventListener('click', () => {
+			void unlockMembersPage();
+		});
+
+		passwordInput.addEventListener('keydown', (event) => {
+			if (event.key !== 'Enter') return;
+			event.preventDefault();
+			void unlockMembersPage();
+		});
+	}
+</script>
+
+<style>
+	h1 {
+		font-size: clamp(1.6rem, 3vw, 2.1rem);
+		margin: 0 0 1rem;
+		color: #8e3f23;
+	}
+
+	h2 {
+		margin: 0 0 0.8rem;
+		color: #8e3f23;
+	}
+
+	p {
+		margin: 0 0 0.9rem;
+		line-height: 1.7;
+	}
+
+	label {
+		font-weight: 700;
+		color: #6c3f2a;
+	}
+
+	input {
+		width: 100%;
+		padding: 0.9rem 1rem;
+		border: 1px solid #d8bea9;
+		border-radius: 10px;
+		font: inherit;
+		background: #fffdf9;
+	}
+
+	button,
+	.form-button {
+		display: inline-block;
+		background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+		color: #fff;
+		text-decoration: none;
+		font-weight: 700;
+		padding: 0.95rem 1.6rem;
+		border-radius: 12px;
+		border: 0;
+		box-shadow: 0 6px 16px rgba(200, 88, 47, 0.35);
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.card {
+		background: var(--card-bg);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 1.2rem;
+		box-shadow: 0 10px 24px rgba(133, 89, 56, 0.08);
+	}
+
+	.gate-section {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.gate-form {
+		display: grid;
+		gap: 0.8rem;
+		max-width: 420px;
+	}
+
+	.status-message {
+		min-height: 1.5rem;
+		margin-bottom: 0;
+		color: #8b2f1e;
+		font-weight: 600;
+	}
+
+	.members-content {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.members-header {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.content-block {
+		padding-top: 1rem;
+		border-top: 1px solid #ead6c3;
+	}
+
+	.content-block:first-of-type {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.event-list {
+		margin: 0;
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	dt {
+		font-weight: 700;
+		color: #6c3f2a;
+	}
+
+	dd {
+		margin: 0.2rem 0 0;
+	}
+
+	img {
+		width: min(320px, 100%);
+		height: auto;
+		border-radius: 10px;
+		border: 1px solid #ead6c3;
+		background: #fff;
+	}
+
+	.hidden {
+		display: none;
+	}
+</style>

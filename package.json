@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "members:encrypt": "node scripts/encrypt-members.mjs",
+    "members:decrypt": "node scripts/decrypt-members.mjs"
   },
   "dependencies": {
     "astro": "^5.17.1"
