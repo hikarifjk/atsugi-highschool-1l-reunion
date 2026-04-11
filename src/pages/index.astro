@@ -28,11 +28,15 @@ const participantCards = participants.map((participant) => {
 	const domain = getDomain(participant.youtube) || getDomain(participant.link);
 	const fallbackThumbnail = domain
 		? `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=256`
-		: `${base}favicon.svg`;
+		: 'favicon.svg';
+	const thumbnailUrl = participant.thumbnailUrl || fallbackThumbnail;
+	const thumbnailSrc = thumbnailUrl.startsWith('http') || thumbnailUrl.startsWith('data:')
+		? thumbnailUrl
+		: `${base}${thumbnailUrl.replace(/^\/+/, '')}`;
 
 	return {
 		...participant,
-		thumbnailSrc: participant.thumbnailUrl || fallbackThumbnail,
+		thumbnailSrc,
 	};
 });
 ---
@@ -84,7 +88,7 @@ const participantCards = participants.map((participant) => {
 				participantCards.map((participant) => (
 					<article class="card participant-card">
 						<img src={participant.thumbnailSrc} alt={`${participant.name} サムネイル`} loading="lazy" />
-						<h3>{participant.name}</h3>
+						<h3>{participant.title || participant.name}</h3>
 						<p>{participant.intro}</p>
 						{participant.youtube && (
 							<p><a class="text-link" href={participant.youtube} target="_blank" rel="noopener noreferrer">YouTubeチャンネル</a></p>

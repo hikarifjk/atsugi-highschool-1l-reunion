@@ -10,6 +10,20 @@
 		"link": "https://www.makiuchi-seikeigeka.jp/",
 		"intro": "牧内さん(1L)開業の整形外科病院です。",
 		"categories": ["医療", "整形外科"]
+	},
+	{
+		"name": "山田さん",
+		"title": "山田さん(1L)の近況報告",
+		"thumbnailUrl": "images/yamada-status-placeholder.svg",
+		"intro": "不動産業とドラッグストア勤務(いわゆる『違法ドラッグ』ではなく、市販薬を扱っております)のダブルワークで、忙しくも楽しくすごしております。保育士の資格も取りましたが、従事経験は積んでおらず、今のところ役にたってはいないかな・・でございます。",
+		"categories": ["近況報告"]
+	},
+	{
+		"name": "小菅さん",
+		"title": "小菅さん(1L)の近況報告",
+		"thumbnailUrl": "images/kosuge-status-placeholder.svg",
+		"intro": "会社員してます！",
+		"categories": ["近況報告"]
 	}
 ]
 

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Yamada Status Placeholder</title>
+  <desc id="desc">Soft illustration of a man handing medicine with real estate and drugstore motifs</desc>
+  <rect width="640" height="360" fill="#f7fbf8" />
+  <circle cx="322" cy="178" r="118" fill="#d8eadc" />
+
+  <rect x="82" y="210" width="180" height="86" rx="8" fill="#fff" stroke="#9bc3a5" stroke-width="5" />
+  <path d="M106 210v-44h132v44" fill="#ecf6ee" stroke="#9bc3a5" stroke-width="5" />
+  <path d="M94 166h156l-78-58Z" fill="#6aa77b" />
+  <rect x="151" y="238" width="42" height="58" rx="5" fill="#b8d9bf" />
+  <rect x="106" y="230" width="34" height="28" rx="4" fill="#f7fbf8" stroke="#9bc3a5" stroke-width="4" />
+  <rect x="204" y="230" width="34" height="28" rx="4" fill="#f7fbf8" stroke="#9bc3a5" stroke-width="4" />
+
+  <rect x="394" y="102" width="148" height="148" rx="12" fill="#fff" stroke="#89b993" stroke-width="5" />
+  <path d="M424 102h88v40h-88z" fill="#6aa77b" />
+  <path d="M468 158v52M442 184h52" stroke="#6aa77b" stroke-width="14" stroke-linecap="round" />
+  <circle cx="430" cy="272" r="18" fill="#f6d7d2" stroke="#cf7d70" stroke-width="4" />
+  <rect x="466" y="258" width="54" height="28" rx="14" fill="#f8e2a5" stroke="#d39e34" stroke-width="4" />
+
+  <circle cx="319" cy="127" r="45" fill="#f0c7a8" />
+  <path d="M272 121c7-36 34-55 66-46 27 8 41 30 35 54-21-12-54-17-101-8Z" fill="#49615a" />
+  <circle cx="303" cy="131" r="5" fill="#4b3832" />
+  <circle cx="337" cy="131" r="5" fill="#4b3832" />
+  <path d="M287 151c14 15 50 15 64 0" fill="none" stroke="#7a5141" stroke-width="7" stroke-linecap="round" />
+
+  <path d="M224 292c14-56 49-88 95-88s81 32 95 88" fill="#6aa77b" />
+  <path d="M224 292h190v34H224z" fill="#6aa77b" />
+  <path d="M267 230c-30 10-54 26-76 48" fill="none" stroke="#f0c7a8" stroke-width="20" stroke-linecap="round" />
+  <path d="M372 230c31 9 58 24 87 48" fill="none" stroke="#f0c7a8" stroke-width="20" stroke-linecap="round" />
+  <rect x="438" y="236" width="72" height="58" rx="7" fill="#fff" stroke="#89b993" stroke-width="5" />
+  <path d="M456 265h36M474 247v36" stroke="#6aa77b" stroke-width="8" stroke-linecap="round" />
+
+  <g fill="#8e3f23" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="320" y="56" font-size="30" font-weight="700">YAMADA</text>
+    <text x="320" y="334" font-size="23">Real Estate / Drugstore</text>
+  </g>
+</svg>
