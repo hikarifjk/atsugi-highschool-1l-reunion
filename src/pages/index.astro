@@ -28,7 +28,7 @@ const participantCards = participants.map((participant) => {
 	const domain = getDomain(participant.youtube) || getDomain(participant.link);
 	const fallbackThumbnail = domain
 		? `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=256`
-		: `${base}favicon.svg`;
+		: 'favicon.svg';
 	const thumbnailUrl = participant.thumbnailUrl || fallbackThumbnail;
 	const thumbnailSrc = thumbnailUrl.startsWith('http') || thumbnailUrl.startsWith('data:')
 		? thumbnailUrl
