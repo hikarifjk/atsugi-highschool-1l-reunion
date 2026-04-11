@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Kosuge Status Placeholder</title>
+  <desc id="desc">Soft illustration of a woman office worker with a laptop and documents</desc>
+  <rect width="640" height="360" fill="#fff8f8" />
+  <circle cx="320" cy="176" r="118" fill="#f4d7df" />
+
+  <rect x="98" y="206" width="138" height="104" rx="8" fill="#fff" stroke="#d9a0ad" stroke-width="5" />
+  <path d="M122 232h90M122 258h72M122 284h58" stroke="#d9a0ad" stroke-width="8" stroke-linecap="round" />
+  <rect x="432" y="208" width="104" height="92" rx="10" fill="#b66878" />
+  <path d="M460 208v-20c0-13 11-24 24-24s24 11 24 24v20" fill="none" stroke="#8d4a58" stroke-width="8" stroke-linecap="round" />
+  <rect x="456" y="238" width="56" height="8" rx="4" fill="#fff8f8" opacity=".75" />
+
+  <path d="M260 146c0-48 28-78 60-78s60 30 60 78v78H260z" fill="#5c4a45" />
+  <circle cx="320" cy="134" r="47" fill="#f0c7a8" />
+  <path d="M270 126c12-37 45-56 83-36 13 7 22 20 25 38-38-2-67-12-88-30-6 10-12 19-20 28Z" fill="#5c4a45" />
+  <circle cx="303" cy="137" r="5" fill="#4b3832" />
+  <circle cx="337" cy="137" r="5" fill="#4b3832" />
+  <path d="M286 156c15 15 53 15 68 0" fill="none" stroke="#7a5141" stroke-width="7" stroke-linecap="round" />
+
+  <path d="M224 294c15-56 49-88 96-88s81 32 96 88" fill="#d9899c" />
+  <path d="M224 294h192v34H224z" fill="#d9899c" />
+  <path d="M267 232c-22 19-38 42-48 70" fill="none" stroke="#f0c7a8" stroke-width="19" stroke-linecap="round" />
+  <path d="M373 232c22 19 38 42 48 70" fill="none" stroke="#f0c7a8" stroke-width="19" stroke-linecap="round" />
+
+  <rect x="244" y="248" width="152" height="70" rx="8" fill="#fff" stroke="#9d7380" stroke-width="5" />
+  <path d="M270 318h100" stroke="#9d7380" stroke-width="8" stroke-linecap="round" />
+  <circle cx="320" cy="282" r="10" fill="#d9899c" />
+
+  <g fill="#8e3f23" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="320" y="56" font-size="30" font-weight="700">KOSUGE</text>
+    <text x="320" y="334" font-size="23">Office Work</text>
+  </g>
+</svg>
