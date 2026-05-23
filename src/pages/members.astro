@@ -33,6 +33,11 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 	const statusMessage = app?.querySelector('[data-status-message]');
 	const gatePanel = app?.querySelector('[data-gate-panel]');
 	const membersContent = app?.querySelector('[data-members-content]');
+	const overviewUpdates = {
+		開催日: '2026年10月4日（日）',
+		開催時間: '13:00または14:00頃の開始を予定しています（現在調整中）。',
+		開催場所: '会場は現在調整中です。決まり次第こちらでお知らせします。',
+	};
 
 	const fromBase64 = (value) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
 
@@ -59,7 +64,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 			const description = document.createElement('dd');
 
 			term.textContent = termText;
-			description.textContent = descriptionText;
+			description.textContent = overviewUpdates[termText] ?? descriptionText;
 			row.append(term, description);
 			list.appendChild(row);
 		});
