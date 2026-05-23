@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Book Publication Placeholder</title>
+  <desc id="desc">Soft illustration of a published book with a review star motif</desc>
+  <rect width="640" height="360" fill="#fffaf3" />
+  <circle cx="320" cy="180" r="128" fill="#f3dec8" />
+
+  <path d="M188 84h166c26 0 48 22 48 48v150H238c-28 0-50-22-50-50Z" fill="#fff" stroke="#b65a38" stroke-width="7" />
+  <path d="M402 132c0-26 22-48 48-48h2v198h-50Z" fill="#f9e8d8" stroke="#b65a38" stroke-width="7" />
+  <path d="M232 132h98M232 166h128M232 200h108" stroke="#d49a73" stroke-width="11" stroke-linecap="round" />
+  <path d="M402 282c-18-13-39-20-64-20H205" fill="none" stroke="#8e3f23" stroke-width="7" stroke-linecap="round" />
+
+  <path d="M473 156l18 37 41 6-30 29 7 41-36-19-36 19 7-41-30-29 41-6Z" fill="#f6c343" stroke="#b98016" stroke-width="6" stroke-linejoin="round" />
+  <circle cx="474" cy="184" r="62" fill="none" stroke="#f0d8bd" stroke-width="18" />
+
+  <g fill="#8e3f23" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="320" y="58" font-size="30" font-weight="700">FIRST BOOK</text>
+    <text x="320" y="326" font-size="23">Publication / Amazon Review</text>
+  </g>
+</svg>
