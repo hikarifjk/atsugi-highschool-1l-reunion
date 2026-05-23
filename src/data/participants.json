@@ -1,11 +1,12 @@
 ﻿[
 	{
-		"name": "小城さん(1L)",
-		"title": "小城さん(1L)の初著が出版されました！",
+		"name": "太田さん",
+		"title": "太田さん（旧姓：小城・1L）の初著が出版されました！",
 		"thumbnailUrl": "images/oshiro-book-placeholder.svg",
 		"link": "https://www.amazon.co.jp/dp/4534062699?ref=ppx_yo2ov_dt_b_fed_asin_title",
-		"intro": "小城さん(1L)の初著が出版されました！ぜひご購入いただき、Amazonレビューでも応援いただけるとうれしいです。",
-		"categories": ["書籍", "出版"]
+		"linkLabel": "Amazonで書籍を見る",
+		"intro": "太田さん（旧姓：小城・1L）の初著「売上が下がっても利益が増える 会社のお金の残し方」が出版されました。現在、Amazon 管理会計部門で6位となっている注目の書籍です。ぜひご購入いただき、Amazonレビューでも応援いただけるとうれしいです。",
+		"categories": ["書籍", "出版", "管理会計"]
 	},
 	{
 		"name": "リバティ・バランス",
