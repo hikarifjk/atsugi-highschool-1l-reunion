@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">Book Publication Placeholder</title>
+  <desc id="desc">Soft illustration of a business book with accounting and ranking motifs</desc>
+  <rect width="640" height="360" fill="#fffaf3" />
+  <circle cx="320" cy="180" r="128" fill="#f3dec8" />
+
+  <path d="M184 84h166c28 0 50 22 50 50v150H236c-29 0-52-23-52-52Z" fill="#fff" stroke="#b65a38" stroke-width="7" />
+  <path d="M400 134c0-28 22-50 50-50h8v200h-58Z" fill="#f9e8d8" stroke="#b65a38" stroke-width="7" />
+  <path d="M230 134h110M230 168h128M230 202h96" stroke="#d49a73" stroke-width="11" stroke-linecap="round" />
+  <path d="M400 284c-18-13-40-20-65-20H204" fill="none" stroke="#8e3f23" stroke-width="7" stroke-linecap="round" />
+
+  <rect x="446" y="145" width="26" height="94" rx="5" fill="#6aa77b" />
+  <rect x="484" y="113" width="26" height="126" rx="5" fill="#b65a38" />
+  <rect x="522" y="174" width="26" height="65" rx="5" fill="#d9a441" />
+  <path d="M432 242h132" stroke="#8e3f23" stroke-width="7" stroke-linecap="round" />
+  <circle cx="496" cy="80" r="34" fill="#f6c343" stroke="#b98016" stroke-width="5" />
+  <text x="496" y="92" fill="#8e3f23" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">6</text>
+
+  <g fill="#8e3f23" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="320" y="58" font-size="30" font-weight="700">BUSINESS BOOK</text>
+    <text x="320" y="326" font-size="23">Accounting / Profit</text>
+  </g>
+</svg>
