@@ -1,25 +1,39 @@
 {
   "pageTitle": "厚木高校1年L組+α 同窓会 メンバー向けページ",
-  "pageLead": "参加登録、開催概要、グループLINEの案内はこのページから確認できます。",
+  "pageLead": "出欠確認、開催概要、グループLINEの案内はこのページから確認できます。",
   "sections": [
     {
       "kind": "overview",
       "heading": "開催概要",
       "items": [
-        ["開催日", "ここを書き換えてください"],
-        ["開催時間", "ここを書き換えてください"],
-        ["開催場所", "ここを書き換えてください"],
-        ["会費", "ここを書き換えてください"]
+        {
+          "term": "日時",
+          "description": "ここを書き換えてください"
+        },
+        {
+          "term": "場所",
+          "description": "ここを書き換えてください",
+          "linkUrl": "https://example.com/"
+        },
+        {
+          "term": "会費",
+          "description": "ここを書き換えてください"
+        },
+        {
+          "term": "回答期限",
+          "description": "ここを書き換えてください",
+          "emphasis": true
+        }
       ]
     },
     {
       "kind": "form",
-      "heading": "仮出欠登録フォーム",
+      "heading": "出欠確認フォーム",
       "paragraphs": [
         "ここを書き換えてください",
         "ここを書き換えてください"
       ],
-      "linkLabel": "仮出欠登録(Googleフォーム)",
+      "linkLabel": "出欠確認フォームに回答する",
       "linkUrl": "https://example.com/"
     },
     {
