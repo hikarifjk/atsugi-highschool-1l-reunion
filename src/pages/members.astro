@@ -53,13 +53,29 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 		const list = document.createElement('dl');
 		list.className = 'event-list';
 
-		section.items.forEach(([termText, descriptionText]) => {
+		section.items.forEach((item) => {
+			const [termText, descriptionText] = Array.isArray(item)
+				? item
+				: [item.term, item.description];
 			const row = document.createElement('div');
 			const term = document.createElement('dt');
 			const description = document.createElement('dd');
 
 			term.textContent = termText;
-			description.textContent = descriptionText;
+			if (!Array.isArray(item) && item.emphasis) {
+				row.classList.add('is-emphasis');
+			}
+
+			if (!Array.isArray(item) && item.linkUrl) {
+				const link = document.createElement('a');
+				link.href = item.linkUrl;
+				link.target = '_blank';
+				link.rel = 'noopener noreferrer';
+				link.textContent = descriptionText;
+				description.appendChild(link);
+			} else {
+				description.textContent = descriptionText;
+			}
 			row.append(term, description);
 			list.appendChild(row);
 		});
@@ -312,6 +328,23 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 		gap: 0.8rem;
 	}
 
+	.event-list div {
+		padding: 0.75rem 0;
+		border-bottom: 1px solid #f0dfd0;
+	}
+
+	.event-list div:last-child {
+		border-bottom: 0;
+	}
+
+	.event-list .is-emphasis {
+		margin-top: 0.2rem;
+		padding: 0.85rem 1rem;
+		border: 1px solid #e2a56e;
+		border-radius: 8px;
+		background: #fff7ed;
+	}
+
 	dt {
 		font-weight: 700;
 		color: #6c3f2a;
@@ -319,6 +352,11 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
 	dd {
 		margin: 0.2rem 0 0;
+	}
+
+	dd a {
+		color: #8e3f23;
+		font-weight: 700;
 	}
 
 	img {
