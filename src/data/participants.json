@@ -1,5 +1,14 @@
 ﻿[
 	{
+		"name": "木内さん(1L)",
+		"title": "木内さん(1L)の近況報告",
+		"thumbnailUrl": "images/kiuchi-music-placeholder.svg",
+		"youtube": "https://youtube.com/channel/UC1TObIb_Kza-nhh_AyGsmEQ?si=a5MMEFQ0uWuLPO4Q",
+		"youtubeLabel": "つくよもチャンネル",
+		"intro": "会社勤めの傍ら、音楽活動をしています。メインはデュオ【つくし&よもぎ】。このほか、70代後半の美魔女たちとJazz&昭和歌謡も楽しんでいます。YouTubeチャンネルもあります。よかったら、ぜひチャンネル登録をお願いします。",
+		"categories": ["近況報告", "音楽", "YouTube"]
+	},
+	{
 		"name": "太田さん",
 		"title": "太田さん（旧姓：小城・1L）の初著が出版されました！",
 		"thumbnailUrl": "images/oshiro-book-placeholder.svg",
