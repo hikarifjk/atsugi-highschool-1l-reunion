@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+  <title id="title">木内さんの音楽活動</title>
+  <desc id="desc">Music activity placeholder image for Kiuchi activity card</desc>
+  <rect width="640" height="360" rx="24" fill="#fff6ec"/>
+  <rect x="24" y="24" width="592" height="312" rx="20" fill="#ffe6d1" stroke="#e4b28a" stroke-width="3"/>
+  <circle cx="186" cy="178" r="64" fill="#c8582f" opacity="0.95"/>
+  <circle cx="186" cy="178" r="22" fill="#fff6ec"/>
+  <path d="M274 104v122c0 30-23 52-54 52-24 0-43-14-43-32 0-20 22-34 49-26 8 2 15 6 20 10V88h34l100-28v48L274 138z" fill="#8e3f23"/>
+  <path d="M396 132c38 0 70 31 70 70s-32 70-70 70c-22 0-42-10-55-26" fill="none" stroke="#b94f2d" stroke-width="14" stroke-linecap="round"/>
+  <path d="M398 166l52 35-52 35z" fill="#c8582f"/>
+  <text x="320" y="308" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#8e3f23">つくよもチャンネル</text>
+</svg>
